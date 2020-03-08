@@ -3,7 +3,7 @@ import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 
 import api from '../../services/api';
 
-import { Container, Form, SubmitButton } from './styles';
+import { Container, Form, SubmitButton, List } from './styles';
 
 class Main extends PureComponent {
   constructor(props) {
@@ -34,8 +34,6 @@ class Main extends PureComponent {
       name: response.data.full_name,
     };
 
-    console.log(response);
-
     this.setState({
       repositories: [...repositories, data],
       newRepo: '',
@@ -44,7 +42,7 @@ class Main extends PureComponent {
   };
 
   render() {
-    const { newRepo, loading } = this.state;
+    const { newRepo, loading, repositories } = this.state;
 
     return (
       <Container>
@@ -67,6 +65,14 @@ class Main extends PureComponent {
             )}
           </SubmitButton>
         </Form>
+        <List>
+          {repositories.map(repository => (
+            <li key={repository.name}>
+              <span>{repository.name}</span>
+              <a href="#">Detalhes</a>
+            </li>
+          ))}
+        </List>
       </Container>
     );
   }

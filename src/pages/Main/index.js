@@ -41,6 +41,23 @@ class Main extends PureComponent {
     });
   };
 
+  componentDidMount() {
+    const repository = localStorage.getItem('repositories');
+
+    if (repository) {
+      this.setState({
+        repositories: JSON.parse(repository),
+      });
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    const { repositories } = this.state;
+    if (prevState.repositories !== repositories) {
+      localStorage.setItem('repositories', JSON.stringify(repositories));
+    }
+  }
+
   render() {
     const { newRepo, loading, repositories } = this.state;
 

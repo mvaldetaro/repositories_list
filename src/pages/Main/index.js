@@ -1,12 +1,19 @@
 import React, { PureComponent } from 'react';
-import { FaGithubAlt, FaPlus } from 'react-icons/fa';
+import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
+
+import api from '../../services/api';
 
 import { Container, Form, SubmitButton } from './styles';
 
 class Main extends PureComponent {
-  state = {
-    newRepo: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      newRepo: '',
+      repositories: [],
+      loading: false,
+    };
+  }
 
   handleInputChange = e => {
     this.setState({
@@ -14,14 +21,30 @@ class Main extends PureComponent {
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
 
-    console.log(this.state.newRepo);
+    this.setState({
+      loading: true,
+    });
+
+    const { newRepo, repositories } = this.state;
+    const response = await api.get(`/repos/${newRepo}`);
+    const data = {
+      name: response.data.full_name,
+    };
+
+    console.log(response);
+
+    this.setState({
+      repositories: [...repositories, data],
+      newRepo: '',
+      loading: false,
+    });
   };
 
   render() {
-    const { newRepo } = this.state;
+    const { newRepo, loading } = this.state;
 
     return (
       <Container>
@@ -36,8 +59,12 @@ class Main extends PureComponent {
             value={newRepo}
             onChange={this.handleInputChange}
           />
-          <SubmitButton>
-            <FaPlus color="#FFF" size={14} />
+          <SubmitButton loading={loading}>
+            {loading ? (
+              <FaSpinner color="#FFF" size={14} />
+            ) : (
+              <FaPlus color="#FFF" size={14} />
+            )}
           </SubmitButton>
         </Form>
       </Container>

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-
+import PropTypes from 'prop-types';
 import api from '../../services/api';
 import { Container } from './styles';
 
@@ -48,5 +48,13 @@ class Repository extends PureComponent {
     );
   }
 }
+
+PropTypes.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      repository: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
 export default Repository;

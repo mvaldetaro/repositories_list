@@ -62,23 +62,68 @@ export const Owner = styled.ul`
   }
 `;
 
-export const List = styled.ul`
+export const IssueList = styled.ul`
   list-style: none;
   margin-top: 30px;
+  padding-top: 30px;
+  list-style: none;
+  border-top: 1px solid #eee;
 
   li {
-    padding: 15px 0;
     display: flex;
-    justify-content: space-between;
+    padding: 15px 10px;
+    border: 1px solid #eee;
+    border-radius: 4px;
     align-items: center;
 
     & + li {
-      border-top: 1px solid #eee;
+      margin-top: 10px;
     }
 
     a {
       color: #5d7bcf;
       text-decoration: none;
+    }
+
+    img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid #eee;
+    }
+
+    div {
+      flex: 1;
+      margin-left: 15px;
+
+      strong {
+        font-size: 16px;
+
+        a {
+          text-decoration: none;
+          color: #333;
+
+          &:hover {
+            color: #7159c1;
+          }
+        }
+
+        span {
+          background: #eee;
+          color: #333;
+          border-radius: 2px;
+          font-size: 12px;
+          height: 20px;
+          padding: 3px 4px;
+          margin-left: 10px;
+        }
+      }
+
+      p {
+        margin-top: 5px;
+        font-size: 12px;
+        color: #999;
+      }
     }
   }
 `;
